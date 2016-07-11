@@ -1,0 +1,60 @@
+# Git Ignore File
+# This file tells git what kind of files to ignore in commits
+
+# JetBrains IDE Stuff
+# https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+
+# Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+# Logs and Run-Based Variables
+.log
+.setting
+
+# R Stuff
+.Rhistory
+.Rapp.history
+.RData
+.Rproj.user/
+
+# OSX File Types
+.dropbox
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Icon
+
+# General Filetypes
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tar.gz
+
+# Compiled Source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
