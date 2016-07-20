@@ -1,8 +1,8 @@
-import cplex
 import os
 import sys
 import time
 import numpy as np
+import cplex
 
 #PRINTING AND LOGGING
 def print_log(msg, print_flag = True):
@@ -65,7 +65,6 @@ def convert_str_to_bool(val):
     else:
         return None
 
-
 def get_or_set_default(settings, setting_name, default_value, type_check = False, print_flag = False):
 
     if setting_name in settings:
@@ -85,7 +84,6 @@ def get_or_set_default(settings, setting_name, default_value, type_check = False
         settings[setting_name] = default_value
 
     return settings
-
 
 #PROCESSING
 def get_prediction(x, rho):
@@ -198,4 +196,3 @@ def get_accuracy_stats(model, data, error_checking = True):
             assert data[X_field_name].shape[0] == N_check
 
     return accuracy_stats
-
