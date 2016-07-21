@@ -4,7 +4,6 @@ from math import ceil, floor
 from helper_functions import *
 from SLIMCoefficientConstraints import SLIMCoefficientConstraints
 
-
 def create_slim_IP(input, print_flag = False):
     """
     :param input: dictionary with the following keys
@@ -44,6 +43,14 @@ def create_slim_IP(input, print_flag = False):
     N_neg = len(neg_ind)
     binary_data_flag = np.all((input['X'] == 0) | (input['X'] == 1))
 
+    #outcome variable name
+    if ('Y_name' in input) and (type(input['Y_name']) is list):
+        input['Y_name'] = input['Y_name'][0]
+    elif ('Y_name' in input) and (type(input['Y_name']) is str):
+        pass
+    else:
+        input['Y_name'] = 'Outcome'
+
     #TODO: check intercept conditions
     ## first column of X should be all 1s
     ## first element of X_name should be '(Intercept)'
@@ -71,6 +78,7 @@ def create_slim_IP(input, print_flag = False):
         coef_constraints = input['coef_constraints']
     else:
         coef_constraints = SLIMCoefficientConstraints(variable_names = input['X_names'])
+
 
     assert len(coef_constraints) == P
 
@@ -469,6 +477,9 @@ def create_slim_IP(input, print_flag = False):
         "total_error_name": total_error_name,
         "total_error_pos_name": total_error_pos_name,
         "total_error_neg_name": total_error_neg_name,
+        #
+        "X_names": input['X_names'],
+        "Y_name": input['Y_name'],
         #
         # dropped
         "variables_to_drop": variables_to_drop,

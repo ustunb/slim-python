@@ -4,7 +4,7 @@ try:
 except ImportError:
     from distutils.core import setup, Extension
 
-setup(name='slim-python',
+setup(name='slim_python',
       version='1.0',
       description='learn optimized scoring systems from data',
       long_description = '''
@@ -13,5 +13,5 @@ setup(name='slim-python',
       author='Berk Ustun',
       author_email='ustunb@mit.edu',
       url='https://www.berkustun.com/',
-      packages=['slim-python'],
+      packages=['slim_python'],
       )
