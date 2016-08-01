@@ -38,11 +38,38 @@ X_names.insert(0, '(Intercept)')
 # run sanity checks
 slim.check_data(X = X, Y = Y, X_names = X_names)
 
-
 #### TRAIN SCORING SYSTEM USING SLIM ####
 # setup SLIM coefficient set
 coef_constraints = slim.SLIMCoefficientConstraints(variable_names = X_names, ub = 5, lb = -5)
 coef_constraints.view()
+
+#choose upper and lower bounds for the intercept coefficient
+#to ensure that there will be no regularization due to the intercept, choose
+#
+#intercept_ub < min_i(min_score_i)
+#intercept_lb > max_i(max_score_i)
+#
+#where min_score_i = min((Y*X) * \rho) for rho in \Lset
+#where max_score_i = max((Y*X) * \rho) for rho in \Lset
+#
+#setting intercept_ub and intercept_lb in this way ensures that we can always
+# classify every point as positive and negative
+scores_at_ub = (Y * X) * coef_constraints.ub
+scores_at_lb = (Y * X) * coef_constraints.lb
+non_intercept_ind = np.array([n != '(Intercept)' for n in X_names])
+scores_at_ub = scores_at_ub[:, non_intercept_ind]
+scores_at_lb = scores_at_lb[:, non_intercept_ind]
+max_scores = np.fmax(scores_at_ub, scores_at_lb)
+min_scores = np.fmin(scores_at_ub, scores_at_lb)
+max_scores = np.sum(max_scores, 1)
+min_scores = np.sum(min_scores, 1)
+
+intercept_ub = -min(min_scores) + 1
+intercept_lb = -max(max_scores) + 1
+coef_constraints.set_field('ub', '(Intercept)', intercept_ub)
+coef_constraints.set_field('lb', '(Intercept)', intercept_lb)
+coef_constraints.view()
+
 
 #create SLIM IP
 slim_input = {
