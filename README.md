@@ -1,20 +1,14 @@
-``slim-python`` is a package to create scoring systems using the CPLEX Optimization Studio.
+slim-python is a package to learn customized scoring systems. These are simple models that let users make yes-no predictions by adding and subtracting a few small numbers. ![SLIM scoring system for the mushrooms dataset](https://github.com/ustunb/slim-python/blob/master/images/slim_mushroom.png)
 
-## Introduction
-
-[SLIM](http://http//arxiv.org/abs/1502.04269/) is new machine learning method to learn *scoring systems* -- binary classification models that let users make quick predictions by adding, subtracting and multiplying a few small numbers:
-
-![SLIM scoring system for the mushrooms dataset](https://github.com/ustunb/slim-python/blob/master/images/slim_mushroom.png)
-
-SLIM can learn models that are fully optimized for accuracy and sparsity, and that satisfy difficult constraints **without parameter tuning** (e.g. hard limits on model size, the true positive rate, the false positive rate).
+SLIM is designed to fit the most accurate scoring system for a given dataset. To do this, it solves a hard optimization problem that directly optimizes for accuracy, sparsity, and customized constraints (e.g., hard limits on model size, the true positive rate, the false positive rate).
 
 ## Requirements
 
-``slim-python`` was developed using Python 2.7.11 and CPLEX 12.6.2. It may work with other versions of Python and/or CPLEX, but this has not been tested and will not be supported in future releases.
+``slim-python`` was developed using Python 2.7.11 and CPLEX 12.6.2. 
 
 ### CPLEX 
 
-*CPLEX* is cross-platform commercial optimization tool that can be called from Python. It is freely available to students and faculty members at accredited institutions as part of the IBM Academic Initiative. To get CPLEX:
+*CPLEX* is cross-platform commercial optimization tool with a Pytho API. It is freely available to students and faculty members at accredited institutions as part of the IBM Academic Initiative. To get CPLEX:
 
 1. Join the [IBM Academic Initiative](http://www-304.ibm.com/ibm/university/academic/pub/page/mem_join). Note that it may take up to a week to obtain approval.
 2. Download *IBM ILOG CPLEX Optimization Studio V12.6.1* (or higher) from the [software catalog](https://www-304.ibm.com/ibm/university/academic/member/softwaredownload)
