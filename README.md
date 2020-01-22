@@ -1,6 +1,8 @@
-slim-python is a package to learn customized scoring systems. These are simple models that let users make yes-no predictions by adding and subtracting a few small numbers. ![SLIM scoring system for the mushrooms dataset](https://github.com/ustunb/slim-python/blob/master/images/slim_mushroom.png)
+``slim-python`` is a package to learn customized *scoring systems* for decision-making problems. 
 
-SLIM is designed to fit the most accurate scoring system for a given dataset. To do this, it solves a hard optimization problem that directly optimizes for accuracy, sparsity, and customized constraints (e.g., hard limits on model size, the true positive rate, the false positive rate).
+These are simple decision aids that let users make yes-no predictions by adding and subtracting a few small numbers. ![SLIM scoring system for the mushrooms dataset](https://github.com/ustunb/slim-python/blob/master/images/slim_mushroom.png)
+
+SLIM is designed to learn the most accurate scoring system for a given dataset and set of constraints. These models are produced by solving a hard optimization problem that directly optimizes for accuracy, sparsity, and customized constraints (e.g., hard limits on model size, TPR, FPR).
 
 ## Requirements
 
