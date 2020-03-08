@@ -22,7 +22,7 @@ Please check the [CPLEX user manual](http://www-01.ibm.com/support/knowledgecent
 
 ## Citation 
 
-If you use SLIM for academic research, please cite [our paper](http://http//arxiv.org/abs/1502.04269/)!  
+If you use SLIM for academic research, please cite [our paper](https://arxiv.org/abs/1502.04269/)!  
      
 ```
 @article{
