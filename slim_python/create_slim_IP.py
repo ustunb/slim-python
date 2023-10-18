@@ -1,8 +1,7 @@
 import cplex
-import numpy as np
 from math import ceil, floor
-from helper_functions import *
-from SLIMCoefficientConstraints import SLIMCoefficientConstraints
+from .helper_functions import *
+from .SLIMCoefficientConstraints import SLIMCoefficientConstraints
 
 def create_slim_IP(input, print_flag = False):
     """

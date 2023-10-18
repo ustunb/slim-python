@@ -1,18 +1,17 @@
-import os
 import sys
 import time
-import numpy as np
-import cplex
 import warnings
+import cplex
+import numpy as np
 from prettytable import PrettyTable
 
 #PRINTING AND LOGGING
 def print_log(msg, print_flag = True):
     if print_flag:
         if type(msg) is str:
-            print ('%s | ' % (time.strftime("%m/%d/%y @ %I:%M %p", time.localtime()))) + msg
+            print(('%s | ' % (time.strftime("%m/%d/%y @ %I:%M %p", time.localtime()))) + msg)
         else:
-            print '%s | %r' % (time.strftime("%m/%d/%y @ %I:%M %p", time.localtime()), msg)
+            print('%s | %r' % (time.strftime("%m/%d/%y @ %I:%M %p", time.localtime()), msg))
         sys.stdout.flush()
 
 def get_rho_string(rho, vtypes = 'I'):
@@ -359,7 +358,7 @@ def print_slim_model(rho, X_names, Y_name, show_omitted_variables = False):
     m.align["Variable"] = "l"
     m.align["Points"] = "r"
     m.align["Tally"] = "r"
-    return(m)
+    return m
 
 def get_rho_summary(rho, slim_info, X, Y):
 
@@ -367,7 +366,7 @@ def get_rho_summary(rho, slim_info, X, Y):
     printed_model = print_slim_model(rho, X_names = slim_info['X_names'], Y_name = slim_info['Y_name'], show_omitted_variables = False)
 
     #transform Y
-    y = np.array(Y.flatten(), dtype = np.float)
+    y = np.array(Y.flatten(), dtype=np.cfloat)
     pos_ind = y == 1
     neg_ind = ~pos_ind
     N = len(Y)
@@ -376,7 +375,7 @@ def get_rho_summary(rho, slim_info, X, Y):
 
     #get predictions
     yhat = X.dot(rho) > 0
-    yhat = np.array(yhat, dtype = np.float)
+    yhat = np.array(yhat, dtype=np.cfloat)
     yhat[yhat == 0] = -1
 
     true_positives = np.sum(yhat[pos_ind] == 1)
@@ -399,7 +398,7 @@ def get_rho_summary(rho, slim_info, X, Y):
         'L0_norm': np.sum(rho[slim_info['L0_reg_ind']]),
     }
 
-    return(rho_summary)
+    return rho_summary
 
 def get_slim_summary(slim_IP, slim_info, X, Y):
 
@@ -439,7 +438,7 @@ def get_slim_summary(slim_IP, slim_info, X, Y):
     try:
         rho = np.array(slim_IP.solution.get_values(slim_info['rho_idx']))
         slim_summary.update(get_rho_summary(rho, slim_info, X, Y))
-    except CplexError as e:
+    except cplex.CplexError as e:
         print_log(e)
 
-    return(slim_summary)
+    return slim_summary
