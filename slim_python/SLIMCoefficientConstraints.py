@@ -50,7 +50,7 @@ class SLIMCoefficientConstraints(object):
                 raise ValueError("length of %s is %d; should be %d" % (input_name, len(input_value), self.P))
 
         else:
-            raise ValueError("user provided %s with an unsupported type" % (input_name))
+            raise ValueError("user provided %s with an unsupported type" % input_name)
 
     def __init__(self, **kwargs):
         if 'variable_names' in kwargs:
@@ -92,25 +92,25 @@ class SLIMCoefficientConstraints(object):
 
             if self.ub[i] < self.lb[i]:
                 if self.print_flag:
-                    print "fixed issue: ub < lb for variable %s" % self.variable_names[i]
+                    print("fixed issue: ub < lb for variable %s" % self.variable_names[i])
                 ub = ub[i]
                 lb = lb[i]
                 self.ub[i] = lb
                 self.lb[i] = ub
 
-            if self.sign[i] > 0 and self.lb[i] < 0:
+            if self.sign[i] > 0 > self.lb[i]:
                 self.lb[i] = 0.0
 
-            if self.sign[i] < 0 and self.ub[i] > 0:
+            if self.sign[i] < 0 < self.ub[i]:
                 self.ub[i] = 0.0
 
             if self.variable_names[i] in {'Intercept','(Intercept)', 'intercept', '(intercept)'}:
                 if self.C_0j[i] > 0 or np.isnan(self.C_0j[i]):
                     if self.print_flag:
-                        print "found intercept variable with penalty value of C_0j = %1.4f" % self.C_0j[i]
+                        print("found intercept variable with penalty value of C_0j = %1.4f" % self.C_0j[i])
                     if self.fix_flag:
                         if self.print_flag:
-                            print "setting C_0j for intercept to 0.0 to ensure that intercept is not penalized"
+                            print("setting C_0j for intercept to 0.0 to ensure that intercept is not penalized")
                         self.C_0j[i] = 0.0
 
     def get_field_as_nparray(self, field_name):
@@ -127,13 +127,13 @@ class SLIMCoefficientConstraints(object):
 
             variable_names = [variable_names]
             if type(field_values) is list:
-                if len(field_values) is 1:
+                if len(field_values) == 1:
                     pass
                 else:
                     raise ValueError("user provided multiple values for single field")
 
             elif type(field_values) is np.ndarray:
-                if len(field_values) is 1:
+                if len(field_values) == 1:
                     pass
                 else:
                     raise ValueError("user provided multiple values for single field")
@@ -164,7 +164,7 @@ class SLIMCoefficientConstraints(object):
                 curr_values[self_ind] = field_values[user_ind]
             else:
                 if self.print_flag:
-                    print "warning: Lset object does not contain variable with name: %s" % variable_name
+                    print("warning: Lset object does not contain variable with name: %s" % variable_name)
 
         if self.check_flag: self.check_set()
         if self.print_flag: self.view()
@@ -178,4 +178,4 @@ class SLIMCoefficientConstraints(object):
         x.add_column("lb", self.get_field_as_list('lb'))
         x.add_column("ub", self.get_field_as_list('ub'))
         x.add_column("C_0j", self.get_field_as_list('C_0j'))
-        print x
+        print(x)

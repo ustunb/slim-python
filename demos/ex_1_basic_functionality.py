@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
-import cplex as cp
+
 import slim_python as slim
 
 #### LOAD DATA ####
@@ -15,8 +15,8 @@ data_dir = os.getcwd() + '/data/'
 data_csv_file = data_dir + data_name + '_processed.csv'
 
 # load data file from csv
-df = pd.read_csv(data_csv_file, sep = ',')
-data = df.as_matrix()
+df = pd.read_csv(data_csv_file, sep=',')
+data = df.to_numpy()
 data_headers = list(df.columns.values)
 N = data.shape[0]
 
@@ -100,9 +100,9 @@ slim_IP.parameters.randomseed.set(0)
 slim_IP.parameters.threads.set(1)
 slim_IP.parameters.parallel.set(1)
 slim_IP.parameters.output.clonelog.set(0)
-slim_IP.parameters.mip.tolerances.mipgap.set(np.finfo(np.float).eps)
-slim_IP.parameters.mip.tolerances.absmipgap.set(np.finfo(np.float).eps)
-slim_IP.parameters.mip.tolerances.integrality.set(np.finfo(np.float).eps)
+slim_IP.parameters.mip.tolerances.mipgap.set(np.finfo(np.cfloat).eps)
+slim_IP.parameters.mip.tolerances.absmipgap.set(np.finfo(np.cfloat).eps)
+slim_IP.parameters.mip.tolerances.integrality.set(np.finfo(np.cfloat).eps)
 slim_IP.parameters.emphasis.mip.set(1)
 
 
@@ -114,7 +114,7 @@ slim.check_slim_IP_output(slim_IP, slim_info, X, Y, coef_constraints)
 
 #### CHECK RESULTS ####
 slim_results = slim.get_slim_summary(slim_IP, slim_info, X, Y)
-pprint(slim_results)
+print(slim_results)
 
 # print model
 print(slim_results['string_model'])
@@ -123,11 +123,10 @@ print(slim_results['string_model'])
 print(slim_results['rho'])
 
 # print accuracy metrics
-print 'error_rate: %1.2f%%' % (100*slim_results['error_rate'])
-print 'TPR: %1.2f%%' % (100*slim_results['true_positive_rate'])
-print 'FPR: %1.2f%%' % (100*slim_results['false_positive_rate'])
-print 'true_positives: %d' % slim_results['true_positives']
-print 'false_positives: %d' % slim_results['false_positives']
-print 'true_negatives: %d' % slim_results['true_negatives']
-print 'false_negatives: %d' % slim_results['false_negatives']
-
+print('error_rate: %1.2f%%' % (100 * slim_results['error_rate']))
+print('TPR: %1.2f%%' % (100 * slim_results['true_positive_rate']))
+print('FPR: %1.2f%%' % (100 * slim_results['false_positive_rate']))
+print('true_positives: %d' % slim_results['true_positives'])
+print('false_positives: %d' % slim_results['false_positives'])
+print('true_negatives: %d' % slim_results['true_negatives'])
+print('false_negatives: %d' % slim_results['false_negatives'])
